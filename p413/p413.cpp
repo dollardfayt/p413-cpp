@@ -1,20 +1,96 @@
-﻿// p413.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿#include <iostream>
+#include <string>
+#include <vector>
+#include <clocale> 
 
-#include <iostream>
+class Book {
+private:
+    std::string author;
+    std::string title;
+    std::string publisher;
+    int year;
+    int pageCount;
+
+public:
+    explicit Book(const std::string& author, const std::string& title, const std::string& publisher, int year, int pageCount)
+        : author(author), title(title), publisher(publisher), year(year), pageCount(pageCount) {
+    }
+
+    const std::string& getAuthor() const { return author; }
+    const std::string& getTitle() const { return title; }
+    const std::string& getPublisher() const { return publisher; }
+    int getYear() const { return year; }
+    int getPageCount() const { return pageCount; }
+
+    void displayBook() const {
+        std::cout << "Автор: " << author << std::endl;
+        std::cout << "Название: " << title << std::endl;
+        std::cout << "Издательство: " << publisher << std::endl;
+        std::cout << "Год: " << year << std::endl;
+        std::cout << "Страниц: " << pageCount << std::endl;
+        std::cout << std::endl;
+    }
+};
+
+
+void showBooksByAuthor(const std::vector<Book>& books, const std::string& author) {
+    bool found = false;
+    for (const auto& book : books) {
+        if (book.getAuthor() == author) {
+            book.displayBook();
+            found = true;
+        }
+    }
+    if (!found) {
+        std::cout << "Книги автора \"" << author << "\" не найдены." << std::endl;
+    }
+}
+
+void showBooksByPublisher(const std::vector<Book>& books, const std::string& publisher) {
+    bool found = false;
+    for (const auto& book : books) {
+        if (book.getPublisher() == publisher) {
+            book.displayBook();
+            found = true;
+        }
+    }
+    if (!found) {
+        std::cout << "Книги издательства \"" << publisher << "\" не найдены." << std::endl;
+    }
+}
+
+void showBooksAfterYear(const std::vector<Book>& books, int year) {
+    bool found = false;
+    for (const auto& book : books) {
+        if (book.getYear() > year) {
+            book.displayBook();
+            found = true;
+        }
+    }
+    if (!found) {
+        std::cout << "Книги, выпущенные после " << year << " года, не найдены." << std::endl;
+    }
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    setlocale(LC_ALL, "Russian");
+    std::vector<Book> books;
+    books.emplace_back("Alice Johnson", "The Midnight Bloom", "Stellaris Publishing", 2024, 385);
+    books.emplace_back("Robert Chen", "Echoes of the Past", "Nova Books", 2019, 512);
+    books.emplace_back("Emily Davis", "Secrets of the Deep", "Oceanus Press", 2022, 420);
+    books.emplace_back("David Wilson", "The Lost City of Eldoria", "Mythic Tales Inc", 2022, 680);
+    books.emplace_back("Sarah Rodriguez", "Shadows in the Wind", "Aurora Publishing", 2023, 320);
+    books.emplace_back("Michael Brown", "The Alchemist's Legacy", "Emerald Books", 2017, 455);
+
+    std::cout << "Книги автора Alice Johnson:" << std::endl;
+    showBooksByAuthor(books, "Alice Johnson");
+
+    std::cout << "Книги издательства Nova Books:" << std::endl;
+    showBooksByPublisher(books, "Nova Books");
+
+    std::cout << "Книги, выпущенные после 2020 года:" << std::endl;
+    showBooksAfterYear(books, 2020);
+
+    return 0;
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
