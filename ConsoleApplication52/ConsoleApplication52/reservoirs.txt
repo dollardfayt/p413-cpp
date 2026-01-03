@@ -1,0 +1,21 @@
+4
+Black Sea
+1000
+500
+2000
+SEA
+Baikal
+600
+80
+1642
+LAKE
+Pond
+10
+5
+3
+POND
+Swimming Pool
+25
+10
+2
+POOL
